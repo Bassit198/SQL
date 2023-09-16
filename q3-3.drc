@@ -1,0 +1,20 @@
+% Name: Bassit Ilahi
+% Panther-ID: x x x - 8318
+% Course: COP 4710
+% Assignment#: 1
+% Due: Wed, Feb 8, 2023
+% I hereby certify that this work is my own and none of it is the work of any other person.
+% Signature: Bassit Ilahi
+
+%This query begins by checking if the EMPLOYEESSN exists, goes through the dependent table and finds the ssn associated with "SPOUSE" in the last column.
+%After this, goes to the department table and checks if the EMPLOYEESSN from the dependent table matches any EMPLOYEESSN in the third column, the MGRSSN column, of the department table.
+%Then, goes to the employee table and matches the SSN from the department table to the SSN in the employee table in the fourth column
+%the LNAME that matches this EMPLOYEESSN is returned and stored in the q3 table.
+
+
+  q3:=
+             {LNAME|
+    	(exists EMPLOYEESSN)
+        	   (employee(_,_,LNAME,EMPLOYEESSN,_,_,_,_,_,_) and 
+         	   department(_,_,EMPLOYEESSN,_) and 
+         	   dependent(EMPLOYEESSN,_,_,_,_))};

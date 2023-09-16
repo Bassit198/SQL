@@ -1,0 +1,30 @@
+% Name: Bassit Ilahi
+% Panther-ID: x x x - 8318
+% Course: COP 4710
+% Assignment#: 1
+% Due: Wed, Feb 8, 2023
+% I hereby certify that this work is my own and none of it is the work of any other person.
+% Signature: Bassit Ilahi
+
+
+% this table is used to calculate the maximum number of hours and associated SSN worked on a project from the works_on table. 
+% will check the works_on table via E and S.
+% if the value at works_on at tuple E is less than that tuple value at S, then we will keep that value and iterate tuples again to verify if any tuple is higher. 
+% this is done until all tuples are compared and then the hours and essn tuples which corresponds to that highest value is stored into the tabel maxHoursSsn 
+
+  maxHoursSsn :=
+      { E.hours, E.essn | works_on(E) and  
+	  not (exists S) (works_on(S) and S.hours  >  E.hours)}; 
+
+
+
+% here is where we link the highest hour found above to the last name and first name of the employee
+% this is done by iterating the tuples of the employee table and comparing the values at ssn column to that essn from the maxHoursSsn table. 
+% will return the fname and lname values when the ssn and essn matches thus returning the name of the employee associated with the max hours on works_on
+
+  q4 :=
+    {E.fname, E.lname | 
+    employee(E) and 
+    (exists Y) 
+      (maxHoursSsn(Y)  and 
+       Y.essn=E.ssn)};
